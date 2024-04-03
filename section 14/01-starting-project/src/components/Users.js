@@ -17,20 +17,31 @@ class Users extends Component {
     };
   }
 
+  componentDidMount() {}
+  componentDidUpdate() {}
+  componentWillUnmount() {}
+
   toggleUsersHandler() {
     // this.state.showUsers = false; //Not
-    this.setState({
-      showUsers: false
+    this.setState((curState) => {
+      return { showUsers: !curState.showUsers };
     });
   }
 
   render() {
+    const usersList = (
+      <ul>
+        {DUMMY_USERS.map((user) => (
+          <User key={user.id} name={user.name} />
+        ))}
+      </ul>
+    );
     return (
       <div className={classes.users}>
-        <button onClick={this.toggleUsersHandler}>
-          {showUsers ? "Hide" : "Show"} Users
+        <button onClick={this.toggleUsersHandler.bind(this)}>
+          {this.state.showUsers ? "Hide" : "Show"} Users
         </button>
-        {showUsers && usersList}
+        {this.state.showUsers && usersList}
       </div>
     );
   }
