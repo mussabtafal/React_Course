@@ -3,12 +3,6 @@ import User from "./User";
 
 import classes from "./Users.module.css";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
-
 class Users extends Component {
   constructor() {
     super();
@@ -17,9 +11,19 @@ class Users extends Component {
     };
   }
 
-  componentDidMount() {}
-  componentDidUpdate() {}
-  componentWillUnmount() {}
+  // componentDidMount() {}
+  // componentWillUnmount() {}
+  
+  componentDidUpdate() {
+    // try {
+
+    // } catch (err) {
+
+    // }
+    if (this.props.users.length === 0) {
+      throw new Error("No users provided !");
+    }
+  }
 
   toggleUsersHandler() {
     // this.state.showUsers = false; //Not
@@ -31,7 +35,7 @@ class Users extends Component {
   render() {
     const usersList = (
       <ul>
-        {DUMMY_USERS.map((user) => (
+        {this.props.users.map((user) => (
           <User key={user.id} name={user.name} />
         ))}
       </ul>
