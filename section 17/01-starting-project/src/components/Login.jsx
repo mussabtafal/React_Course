@@ -1,34 +1,16 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 export default function Login() {
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredValues, setEnteredValues] = useState({
-    email: "",
-    password: "",
-  });
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   function handleSubmit(event) {
     event.preventDefault();
-    // console.log("User email: " + enteredEmail);
-    // console.log("User password: " + enteredPassword);
-  }
-
-  function handleEmailChange(event) {
-    setEnteredEmail(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setEnteredPassword(event.target.value);
-  }
-
-  function handleInputChange(identifier, event) {
-    setEnteredValues((prevValues) => ({
-      ...prevValues,
-      [identifier]: event.target.value,
-    }));
-
-    console.log(enteredValues);
+    const enteredEmail = emailRef.current.value
+    const enteredPassword = passwordRef.current.value
+    
+    console.log(enteredEmail)
+    console.log(enteredPassword)
   }
 
   return (
@@ -42,9 +24,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
-            // onChange={handleEmailChange}
-            onChange={(event) => handleInputChange("email", event)}
-            value={enteredValues.email}
+            ref={emailRef}
           />
         </div>
 
@@ -54,16 +34,14 @@ export default function Login() {
             id="password"
             type="password"
             name="password"
-            // onChange={handlePasswordChange}
-            onChange={(event) => handleInputChange("password", event)}
-            value={enteredValues.password}
+            ref={passwordRef}
           />
         </div>
       </div>
 
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
-        <button className="button" onClick={handleSubmit}>
+        <button className="button">
           Login
         </button>
       </p>
