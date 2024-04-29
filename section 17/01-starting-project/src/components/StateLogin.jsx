@@ -3,10 +3,24 @@ import { useRef, useState } from "react";
 export default function Login() {
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [enteredPassword, setEnteredPassword] = useState("");
-  // const [enteredValues, setEnteredValues] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  const [enteredValues, setEnteredValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [didEdit, setDidEdit] = useState({
+    email: false, 
+    password: false
+  })
+
+  const emailIsInvalid = didEdit.email && !enteredValues.email.includes("@");
+
+  function handleInputBlur(identifier) {
+    setDidEdit(prevEdit => ({
+      ...prevEdit, 
+      [identifier]: true
+    }))
+  }
 
   const email = useRef();
   const password = useRef();
@@ -28,14 +42,19 @@ export default function Login() {
   //   setEnteredPassword(event.target.value);
   // }
 
-  // function handleInputChange(identifier, event) {
-  //   setEnteredValues((prevValues) => ({
-  //     ...prevValues,
-  //     [identifier]: event.target.value,
-  //   }));
+  function handleInputChange(identifier, event) {
+    setEnteredValues((prevValues) => ({
+      ...prevValues,
+      [identifier]: event.target.value,
+    }));
 
-  //   console.log(enteredValues);
-  // }
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier]: false
+    }))
+
+    console.log(enteredValues);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -49,10 +68,14 @@ export default function Login() {
             type="email"
             name="email"
             ref={email}
+            onBlur={() => handleInputBlur('email')}
             // onChange={handleEmailChange}
-            // onChange={(event) => handleInputChange("email", event)}
+            onChange={(event) => handleInputChange("email", event)}
             // value={enteredValues.email}
           />
+          <div className="control-error">
+            {emailIsInvalid && <p>Please enter a valid email address</p>}
+          </div>
         </div>
 
         <div className="control no-margin">
@@ -62,8 +85,9 @@ export default function Login() {
             type="password"
             name="password"
             ref={password}
+            onBlur={() => handleInputBlur('password')}
             // onChange={handlePasswordChange}
-            // onChange={(event) => handleInputChange("password", event)}
+            onChange={(event) => handleInputChange("password", event)}
             // value={enteredValues.password}
           />
         </div>
