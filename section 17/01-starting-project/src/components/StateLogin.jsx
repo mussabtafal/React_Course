@@ -3,6 +3,7 @@ import { isEmail, isNotEmpty, hasMinLength } from "../util/validation";
 import Input from "./Input";
 
 export default function Login() {
+  consolee.log("testing email address")
   const {
     value: emailValue,
     handleInputChange: handleEmailChange,
