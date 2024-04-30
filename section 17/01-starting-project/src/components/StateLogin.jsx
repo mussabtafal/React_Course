@@ -14,7 +14,7 @@ export default function Login() {
 
   const {
     value: passwordValue,
-    handleInputChange: handlePsswordChange,
+    handleInputChange: handlePasswordChange,
     handleInputBlur: handlePasswordBlur,
     hasError: passwordHasError
   } = useInput("", (value) => {
@@ -53,7 +53,7 @@ export default function Login() {
           type="password"
           name="password"
           onBlur={handlePasswordBlur}
-          onChange={handlePsswordChange}
+          onChange={handlePasswordChange}
           value={passwordValue}
           error={passwordHasError && "Please enter a valid password"}
         />
