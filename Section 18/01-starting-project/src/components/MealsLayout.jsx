@@ -1,13 +1,34 @@
-import { fetchMeals } from "../http"
+import React, { useState, useEffect } from "react";
+import { fetchMeals } from "../http";
+import MealCard from "./MealCard";
 
 export default function MealsLayout() {
+  const [fetching, setIsFetching] = useState(false);
+  const [meals, setMeals] = useState([]);
 
-    const meals = fetchMeals();
-    console.log(meals)
+  useEffect(() => {
+    async function fetchAllMeals() {
+      try {
+        const meals = await fetchMeals();
+        setMeals(meals);
+      } catch {
+        console.log("Request was not successfull");
+      }
+    }
+    fetchAllMeals();
+  }, []);
 
-    return (
-        <div id="meals">
-            This is just a test
-        </div>
-    )
+  console.log(meals);
+  return (
+    <div id="meals">
+      {meals.map((meal) => {
+        return <MealCard
+          mealName={meal.name}
+          mealImage={meal.image}
+          mealPrice={meal.price}
+          mealDescription={meal.description}
+        />;
+      })}
+    </div>
+  );
 }

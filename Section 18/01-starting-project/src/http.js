@@ -6,6 +6,6 @@ export async function fetchMeals() {
     }
   
     const resData = await response.json();
-    return resData.meals;
+    return resData;
   }
   
