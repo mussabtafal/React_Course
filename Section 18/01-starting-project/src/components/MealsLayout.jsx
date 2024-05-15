@@ -3,13 +3,13 @@ import { fetchMeals } from "../http";
 import MealCard from "./MealCard";
 
 export default function MealsLayout() {
-  const [fetching, setIsFetching] = useState(false);
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     async function fetchAllMeals() {
       try {
         const meals = await fetchMeals();
+        console.log(meals);
         setMeals(meals);
       } catch {
         console.log("Request was not successfull");
@@ -18,16 +18,18 @@ export default function MealsLayout() {
     fetchAllMeals();
   }, []);
 
-  console.log(meals);
   return (
     <div id="meals">
       {meals.map((meal) => {
-        return <MealCard
-          mealName={meal.name}
-          mealImage={meal.image}
-          mealPrice={meal.price}
-          mealDescription={meal.description}
-        />;
+        return (
+          <MealCard
+            key={meal.id}
+            mealName={meal.name}
+            mealPrice={meal.price}
+            mealDescription={meal.description}
+            mealSource={meal.image}
+          />
+        );
       })}
     </div>
   );

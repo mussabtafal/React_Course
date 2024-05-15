@@ -1,20 +1,18 @@
-import React from 'react'
+import React from "react";
+import {currencyFormatter} from '../util/formatter.js'
 
-const MealCard = ({mealName, mealImage, mealPrice, mealDescription}) => {
-  console.log("Meal card is working")
+const MealCard = ({ mealName, mealSource, mealPrice, mealDescription }) => {
   return (
     <div className="meal-item">
-      <article>
-        <img src={"http://localhost:3000/" + mealImage} alt="picture of meal" />
-        <h3>{mealName}</h3>
-        <p className="meal-item-price">
-          {mealPrice}
-        </p>
-        <p className="meal-item-description">{mealDescription}</p>
+      <img src={"http://localhost:3000/" + mealSource} alt={mealName} />
+      <h3>{mealName}</h3>
+      <div className="meal-item-price">{currencyFormatter.format(mealPrice)}</div>
+      <div className="meal-item-description">{mealDescription}</div>
+      <div className="meal-item-actions">
         <button className="button">Add to Cart</button>
-      </article>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MealCard
+export default MealCard;
