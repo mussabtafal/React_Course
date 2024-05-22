@@ -1,10 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const Button = ({children}) => {
-    const cssClasses = textOnly ? 'text-button' : 'button'
+const Button = ({ children, textOnly, className, ...props }) => {
+  let cssClasses = textOnly ? "text-button" : "button";
+  cssClasses += " " + className;
   return (
-    <button>{children}</button>
-  )
-}
+    <button className={cssClasses} {...props}>
+      {children}
+    </button>
+  );
+};
 
-export default Button
+export default Button;
